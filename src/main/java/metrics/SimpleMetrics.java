@@ -1,32 +1,27 @@
-package graph;
+package metrics;
 
-public class SimpleMetrics implements Metrics {
+public class SimpleMetrics {
+
+    private long ops;
     private long startTime;
-    private long elapsed;
-    private long ops = 0;
+    private long endTime;
 
-    @Override
-    public void start() {
-        this.startTime = System.nanoTime();
+    public void reset(){
+        ops=0;
+        startTime=endTime=0;
     }
 
-    @Override
-    public void stop() {
-        this.elapsed = System.nanoTime() - startTime;
+    public void start(){
+        startTime=System.nanoTime();
     }
 
-    @Override
-    public void incOps() {
-        ops++;
+    public void stop(){
+        endTime=System.nanoTime();
     }
 
-    @Override
-    public long getTime() {
-        return elapsed;
-    }
+    public void incOps(){ ops++; }
 
-    @Override
-    public long getOps() {
-        return ops;
-    }
+    public long getOps(){ return ops; }
+
+    public long getTimeNs(){ return endTime-startTime; }
 }
