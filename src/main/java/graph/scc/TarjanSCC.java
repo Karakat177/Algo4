@@ -10,7 +10,7 @@ public class TarjanSCC {
     private Deque<Integer> stack;
     private int id;
     public List<List<Integer>> sccs;
-    private SimpleMetrics metrics; // добавляем метрики
+    private SimpleMetrics metrics; 
 
     public TarjanSCC(Graph g, SimpleMetrics metrics){
         this.g = g;
@@ -27,11 +27,11 @@ public class TarjanSCC {
         sccs = new ArrayList<>();
         id = 0;
 
-        metrics.start(); // запускаем таймер
+        metrics.start(); 
         for(int i=0; i<n; i++){
             if(ids[i]==-1) dfs(i);
         }
-        metrics.stop(); // останавливаем таймер
+        metrics.stop();
         return sccs;
     }
 
@@ -39,11 +39,10 @@ public class TarjanSCC {
         ids[u] = low[u] = id++;
         stack.push(u);
         onStack[u] = true;
-        metrics.incOps(); // посещение вершины
-
+        metrics.incOps(); 
         for(var e: g.adj.get(u)){
             int v = e.to;
-            metrics.incOps(); // проверка ребра
+            metrics.incOps(); 
             if(ids[v]==-1){
                 dfs(v);
                 low[u] = Math.min(low[u], low[v]);
@@ -59,7 +58,7 @@ public class TarjanSCC {
                 node = stack.pop();
                 onStack[node] = false;
                 component.add(node);
-                metrics.incOps(); // добавление в компонент
+                metrics.incOps(); 
             } while(node!=u);
             sccs.add(component);
         }
@@ -79,7 +78,7 @@ public class TarjanSCC {
                     if(!added.contains(key)){
                         dag.addEdge(compMap.get(u), compMap.get(v), e.weight);
                         added.add(key);
-                        metrics.incOps(); // добавление ребра в DAG
+                        metrics.incOps(); 
                     }
                 }
             }
