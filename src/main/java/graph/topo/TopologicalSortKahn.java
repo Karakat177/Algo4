@@ -10,7 +10,7 @@ public class TopologicalSortKahn {
         for(var edges: g.adj){
             for(var e: edges){
                 inDeg[e.to]++;
-                metrics.incOps(); // подсчёт входящей степени
+                metrics.incOps(); 
             }
         }
 
@@ -22,11 +22,11 @@ public class TopologicalSortKahn {
         while(!q.isEmpty()){
             int u = q.poll();
             order.add(u);
-            metrics.incOps(); // вершина добавлена в порядок
+            metrics.incOps(); 
 
             for(var e: g.adj.get(u)){
                 inDeg[e.to]--;
-                metrics.incOps(); // обработка ребра
+                metrics.incOps(); 
                 if(inDeg[e.to]==0) q.add(e.to);
             }
         }
